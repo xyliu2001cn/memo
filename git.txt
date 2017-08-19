@@ -1,0 +1,70 @@
+
+git - 简明指南
+http://rogerdudler.github.io/git-guide/index.zh.html
+
+图解git
+http://marklodato.github.io/visual-git-guide/index-zh-cn.html
+
+
+1.创建新仓库:
+	git init
+2.检出仓库:
+	本地仓库：	git clone /path/to/repository
+	远端仓库:		git clone username@host:/path/to/repository
+3.工作流:
+	1)工作目录: 持有实际文件
+	2)暂存区（Index）: 像个缓存区域，临时保存你的改动
+	3)HEAD: 指向你最后一次提交的结果
+
+	工作目录 ----------> 暂存区 -----------> HEAD
+	提出更改: 	1)-->2) git add <filename>    
+	                    git add *
+	实际提交改动:	2)-->3) git commit -m "代码提交信息"
+
+	4)推送改动(提交到远端仓库): 
+	   更改远端仓库:	git push origin master   (可以把 master 换成你想要推送的任何分支)
+	   添加到远端仓库:	git remote add origin <server>
+
+4.分支:
+	分支用来将特性开发绝缘开来。master 是“默认的”分支。
+	创建分支并切换过去:		git checkout -b feature_x
+	切换回主分支:			git checkout master
+	删掉分支:				git branch -d feature_x
+	将分支推送到远端仓库:	git push origin <branch>
+
+5.更新与合并
+	更新本地仓库至最新改动:	git pull
+	将其他分支合并到当前分支（例如 master）: git merge <branch>
+	更新或合并时如果出现冲突（conflicts），修改修改冲突后执行:	git add <filename>
+	预览差异:		git diff <source_branch> <target_branch>
+
+6.标签
+	创建名为1.0.0的标签:		git tag 1.0.0 1b2e1d63ff
+	1b2e1d63ff是要标记的提交 ID 的前 10 位字符。可用git log命令获取提交ID
+
+7.log
+	git log
+	只看某一个人的提交记录:	git log --author=bob
+	单行显示提交履历:		git log --pretty=oneline
+	通过 ASCII 艺术的树形结构来展示所有的分支, 每个分支都标示了他的名字和标签: 
+		git log --graph --oneline --decorate --all
+	看看哪些文件改变了: 	git log --name-status
+	帮助:				git log --help
+
+8.替换本地改动
+	替换掉本地改动：	git checkout -- <filename>
+	此命令会使用 HEAD 中的最新内容替换掉你的工作目录中的文件。已添加到暂存区的改动以及新文件都不会受到影响。
+	假如你想丢弃你在本地的所有改动与提交，可以到服务器上获取最新的版本历史，并将你本地主分支指向它：
+	git fetch origin
+	git reset --hard origin/master
+
+9.实用小贴士
+	内建的图形化 git:		gitk
+	彩色的 git 输出:		git config color.ui true
+	显示历史记录时，每个提交的信息只显示一行:	git config format.pretty oneline
+	交互式添加文件到暂存区:	git add -i
+
+
+
+
+
